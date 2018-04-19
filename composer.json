@@ -1,0 +1,11 @@
+{
+    "name": "omneo/omneo-php",
+    "description": "PHP library for the Omneo API",
+    "type": "library",
+    "require": {},
+    "autoload": {
+      "psr-4": {
+        "Omneo\\" : "src/"
+      }
+    }
+}
