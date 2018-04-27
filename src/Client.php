@@ -26,6 +26,15 @@ class Client
     protected $token;
 
     /**
+     * Omneo shared secret.
+     *
+     * This is used for verifying inbound webhooks and targets.
+     *
+     * @var string
+     */
+    protected $secret;
+
+    /**
      * Guzzle client for HTTP transport.
      *
      * @var GuzzleHttp\ClientInterface
@@ -38,7 +47,7 @@ class Client
      * @param string $domain
      * @param string $token
      */
-    public function __construct($domain, $token)
+    public function __construct(string $domain, string $token)
     {
         $this->domain = $domain;
         $this->token = $token;
@@ -67,6 +76,29 @@ class Client
     }
 
     /**
+     * Get Omneo shared secret.
+     *
+     * @return string
+     */
+    public function getSecret()
+    {
+        return $this->secret;
+    }
+
+    /**
+     * Set Omneo shared secret.
+     *
+     * @param  string  $secret
+     * @return static
+     */
+    public function setSecret(string $secret)
+    {
+        $this->secret = $secret;
+
+        return $this;
+    }
+
+    /**
      * Pass unknown methods off to the underlying Guzzle client.
      *
      * @param  string $name
@@ -85,7 +117,7 @@ class Client
      * @param  array                        $options
      * @return Client
      */
-    public function setupClient(GuzzleHttp\HandlerStack $stack = null, $options = [])
+    public function setupClient(GuzzleHttp\HandlerStack $stack = null, array $options = [])
     {
         $stack = $stack ?: GuzzleHttp\HandlerStack::create();
 

@@ -23,16 +23,17 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->app->singleton(Client::class, function ($app) {
 
-            list($domain, $token) = [
+            list($domain, $token, $secret) = [
                 config('services.omneo.domain'),
-                config('services.omneo.token')
+                config('services.omneo.token'),
+                config('services.omneo.secret')
             ];
 
             if (! $domain || ! $token) {
                 throw new \Exception('You must configure a domain and token to use the Omneo client');
             }
 
-            return new Client($domain, $token);
+            return (new Client($domain, $token))->setSecret($secret);
 
         });
     }

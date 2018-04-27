@@ -27,4 +27,14 @@ trait BuildsModules
     {
         return new CustomFields($this, $owner ?: new Tenant);
     }
+
+    /**
+     * Return request verifier module.
+     *
+     * @return  RequestVerifier
+     */
+    public function requestVerifier()
+    {
+        return new RequestVerifier($this);
+    }
 }
