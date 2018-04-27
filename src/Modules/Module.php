@@ -3,9 +3,12 @@
 namespace Omneo\Modules;
 
 use Omneo\Client;
+use Omneo\Concerns;
 
 abstract class Module
 {
+    use Concerns\AppliesConstraint;
+
     /**
      * Omneo client.
      *

@@ -2,8 +2,9 @@
 
 namespace Omneo\Concerns;
 
-use Illuminate\Support\Collection;
 use JsonSchema;
+use Illuminate\Support\Collection;
+use JsonSchema\Constraints\Constraint;
 use Omneo\Exceptions\ValidationException;
 
 trait ValidatesAttributes
@@ -22,21 +23,22 @@ trait ValidatesAttributes
 
         $validator = new JsonSchema\Validator;
 
+        // Passed by reference into validator
+        $attributes = (object) $this->getAttributes();
+
         $validator->validate(
-            (object) $this->getAttributes(),
-            [
-                'type' => 'object',
-                'properties' => $this->validationSchema()
-            ]
+            $attributes,
+            $this->validationSchema(),
+            Constraint::CHECK_MODE_APPLY_DEFAULTS
         );
 
         if (! $validator->isValid()) {
             throw new ValidationException(new Collection(
-                array_map(function($error) {
-                    return sprintf('[%s] %s', $error['property'], $error['message']);
-                }, $validator->getErrors())
+                array_pluck($validator->getErrors(), 'message')
             ), true);
         }
+
+        $this->setAttributes((array) $attributes);
 
         return true;
     }

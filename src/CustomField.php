@@ -12,10 +12,14 @@ class CustomField extends Entity
     public function validationSchema()
     {
         return [
-            'namespace' => ['type' => 'string'],
-            'handle' => ['type' => 'string'],
-            'value' => ['type' => 'string'],
-            'type' => ['type' => 'string', 'default' => 'string'],
+            'type' => 'object',
+            'properties' => [
+                'namespace' => ['type' => 'string'],
+                'handle' => ['type' => 'string'],
+                'value' => ['type' => 'string'],
+                'type' => ['type' => 'string', 'default' => 'string']
+            ],
+            'required' => ['namespace', 'handle', 'value', 'type']
         ];
     }
 }

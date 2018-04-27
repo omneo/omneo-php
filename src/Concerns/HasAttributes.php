@@ -36,6 +36,19 @@ trait HasAttributes
     }
 
     /**
+     * Set the attributes to the container.
+     *
+     * @param  array  $attributes
+     * @return static
+     */
+    public function setAttributes(array $attributes)
+    {
+        $this->attributes = $attributes;
+
+        return $this;
+    }
+
+    /**
      * Get the value of an attribute using its mutator.
      *
      * @param  string  $key

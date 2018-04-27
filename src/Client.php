@@ -108,7 +108,9 @@ class Client
     protected function bindHeadersMiddleware(GuzzleHttp\HandlerStack $stack)
     {
         $stack->push(GuzzleHttp\Middleware::mapRequest(function (RequestInterface $request) {
-            return $request->withHeader('Authorization', sprintf('Bearer %s', $this->token));
+            return $request
+                ->withHeader('Accept', 'application/json')
+                ->withHeader('Authorization', sprintf('Bearer %s', $this->token));
         }));
     }
 }
