@@ -3,18 +3,18 @@
 namespace Omneo\Modules;
 
 use Omneo\Exceptions;
-use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\ServerRequestInterface;
 
 class RequestVerifier extends Module
 {
     /**
      * Verify the given request.
      *
-     * @param  Request  $request
+     * @param  ServerRequestInterface  $request
      * @return true
      * @throws Exceptions\RequestVerificationException
      */
-    public function verify(Request $request)
+    public function verify(ServerRequestInterface $request)
     {
         if (! $remoteSignature = $request->getHeaderLine('X-Omneo-Hmac-SHA256')) {
             throw new Exceptions\RequestVerificationException('No signature provided via `X-Omneo-Hmac-SHA256` header');
