@@ -4,8 +4,8 @@ namespace Omneo\Laravel;
 
 use Omneo;
 use Illuminate\Http\Request;
-use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 
 class VerifyRequestMiddleware
 {
@@ -35,10 +35,10 @@ class VerifyRequestMiddleware
      */
     public function handle(Request $request, \Closure $next)
     {
-        $request = (new DiactorosFactory)->createRequest($request);
-
         try {
-            $this->omneo->requestVerifier()->verify($request);
+            $this->omneo->requestVerifier()->verify(
+                (new DiactorosFactory)->createRequest($request)
+            );
         } catch (Omneo\Exceptions\RequestVerificationException $e) {
             throw new HttpException(401, 'Unauthorized', $e);
         }
