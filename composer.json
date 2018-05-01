@@ -2,6 +2,7 @@
   "name": "omneo/omneo-php",
   "description": "PHP library for the Omneo API",
   "type": "library",
+  "license": "MIT",
   "require": {
     "guzzlehttp/guzzle": "^6.3",
     "illuminate/support": "^5.6",
