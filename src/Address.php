@@ -2,7 +2,7 @@
 
 namespace Omneo;
 
-class CustomField extends Entity
+class Address extends Entity
 {
     //
 }

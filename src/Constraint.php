@@ -69,7 +69,7 @@ class Constraint
             ));
         }
 
-        array_set($this->bag, sprintf('%s.%s', $column, $remoteOperation), $value);
+        array_set($this->bag, sprintf('filter.%s.%s', $column, $remoteOperation), $value);
 
         return $this;
     }
@@ -82,7 +82,33 @@ class Constraint
      */
     public function search($value)
     {
-        array_set($this->bag, 'search', $value);
+        array_set($this->bag, 'filter.search', $value);
+
+        return $this;
+    }
+
+    /**
+     * Apply a page constraint.
+     *
+     * @param  int  $page
+     * @return static
+     */
+    public function page(int $page)
+    {
+        array_set($this->bag, 'page', $page);
+
+        return $this;
+    }
+
+    /**
+     * Apply a per page constraint.
+     *
+     * @param  int  $perPage
+     * @return static
+     */
+    public function perPage(int $perPage)
+    {
+        array_set($this->bag, 'per_page', $perPage);
 
         return $this;
     }

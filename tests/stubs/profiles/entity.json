@@ -1,0 +1,60 @@
+{
+  "data": {
+    "id": 1,
+    "external_id": null,
+    "title": "Mr.",
+    "first_name": "Carlos",
+    "last_name": "Bar",
+    "full_name": "Carlos Bar",
+    "email": "mertz.blanca@yahoo.com",
+    "mobile_phone": "0450 551 500",
+    "mobile_phone_country": "AU",
+    "mobile_phone_e164": "+61450551500",
+    "home_phone": null,
+    "home_phone_country": null,
+    "work_phone": null,
+    "work_phone_country": null,
+    "address": {
+      "id": 4,
+      "address_line_1": "123 Foo bar",
+      "address_line_2": "Foo bar land",
+      "address_line_3": null,
+      "company": "FooBar inc.",
+      "suburb": "Melbourne",
+      "postcode": "3000",
+      "state": "Victoria",
+      "country": "Australia",
+      "notes": null,
+      "is_default": true,
+      "created_at": "2018-04-16 05:56:30",
+      "updated_at": "2018-04-18 05:57:38"
+    },
+    "avatar_url": "https://s3.amazonaws.com/uifaces/faces/twitter/vladzima/128.jpg",
+    "gender": "female",
+    "company": null,
+    "occupation": null,
+    "birth_year": 1985,
+    "birth_month": 1,
+    "birth_day": 10,
+    "next_birthday": null,
+    "identities": [
+      {
+        "id": 2,
+        "handle": "zendesk",
+        "identifier": "XYZ",
+        "is_primary": false,
+        "is_active": true,
+        "profile_id": 1,
+        "created_at": "2018-04-24 06:31:51",
+        "updated_at": "2018-04-24 06:31:51"
+      }
+    ],
+    "joined_location_id": null,
+    "tags": [
+      "is-staff"
+    ],
+    "tier_handle": "my-tier",
+    "created_at": "2018-03-09 03:38:32",
+    "updated_at": "2018-04-18 04:14:54"
+  }
+}

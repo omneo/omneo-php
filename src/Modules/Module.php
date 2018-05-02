@@ -7,7 +7,8 @@ use Omneo\Concerns;
 
 abstract class Module
 {
-    use Concerns\AppliesConstraint;
+    use Concerns\MutatesResponses,
+        Concerns\AppliesConstraint;
 
     /**
      * Omneo client.

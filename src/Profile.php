@@ -2,15 +2,32 @@
 
 namespace Omneo;
 
+use Illuminate\Support\Collection;
+
 class Profile extends Entity
 {
     /**
-     * Return JSON validation schema.
+     * Return address entity.
      *
-     * @return  array
+     * @param  array  $attribute
+     * @return Address
      */
-    public function validationSchema()
+    public function getAddressAttribute($attribute)
     {
-        return [];
+        return new Address($attribute);
+    }
+
+    /**
+     * Return identities collection.
+     *
+     * @param  array  $attribute
+     * @return Collection|Identity[]
+     */
+    public function getIdentitiesAttribute($attribute)
+    {
+        return (new Collection((array) $attribute))
+            ->map(function (array $identity) {
+                return new Identity($identity);
+            });
     }
 }

@@ -1,0 +1,184 @@
+{
+  "data": [
+    {
+      "name": "AP21 Desktop POS",
+      "handle": "desktop-pos",
+      "namespace": "clienteling-view",
+      "value": "{\"type\":\"view\",\"handle\":\"ap21pos\",\"render\":{\"type\":\"wrapper\",\"use\":\"Large\",\"content\":[{\"type\":\"layout\",\"use\":\"TwoColumn__2_1\",\"columns\":[[{\"type\":\"layout\",\"use\":\"TwoColumn__1_1\",\"columns\":[[{\"type\":\"block\",\"use\":\"ProfileCallback\",\"settings\":{\"buttonText\":\"Attach profile\",\"buttonType\":\"primary\",\"functionName\":\"profile_addToSale\",\"functionArguments\":[\"id\",\"email\"]}}],[{\"type\":\"block\",\"use\":\"ProfileCallback\",\"settings\":{\"buttonText\":\"Return to POS\",\"buttonType\":\"default\",\"functionName\":\"profile_returnToPos\",\"functionArguments\":[]}}]]},{\"type\":\"block\",\"use\":\"ProfileOverview\",\"settings\":{\"content\":{\"type\":\"layout\",\"use\":\"FourColumn\",\"columns\":[[{\"type\":\"block\",\"use\":\"ProfileDetail\",\"settings\":{\"title\":\"Signed up\",\"key\":\"created_at\",\"format\":\"dateFrom\"}}],[{\"type\":\"block\",\"use\":\"ProfileAggregation\",\"settings\":{\"title\":\"Last shop\",\"key\":\"spend_last_date\",\"format\":\"dateFrom\"}}],[{\"type\":\"block\",\"use\":\"ProfileAggregation\",\"settings\":{\"title\":\"AVG. Spend\",\"key\":\"spend_atv_all\",\"prefix\":\"$\"}}],[{\"type\":\"block\",\"use\":\"ProfileAggregation\",\"settings\":{\"title\":\"Total Spend\",\"key\":\"spend_atv_all\",\"prefix\":\"$\"}}]]}}},{\"type\":\"layout\",\"use\":\"TwoColumn__1_1\",\"columns\":[[{\"type\":\"block\",\"use\":\"ProfileBenefits\",\"settings\":{\"create\":true,\"edit\":true,\"delete\":true}}],[{\"type\":\"block\",\"use\":\"ProfileRewards\",\"settings\":{\"create\":true,\"edit\":true,\"delete\":true}}]]},{\"type\":\"block\",\"use\":\"ProfileTier\",\"settings\":{}},{\"type\":\"block\",\"use\":\"ProfileAttributes\",\"settings\":{\"title\":\"Communication preferences\",\"namespaces\":[\"communications\"],\"inlineEdit\":true,\"modalEdit\":false,\"twoColumn\":true}},{\"type\":\"block\",\"use\":\"ProfileTransactions\",\"settings\":{}}],[{\"type\":\"block\",\"use\":\"ProfileQRCode\",\"settings\":{\"key\":\"email\"}},{\"type\":\"block\",\"use\":\"ProfileAddresses\"},{\"type\":\"block\",\"use\":\"ProfileLedger\"},{\"type\":\"block\",\"use\":\"ProfileTags\",\"settings\":{\"canEdit\":true}},{\"type\":\"block\",\"use\":\"ProfileLists\",\"settings\":{\"lists\":[\"wishlist\"]}}]]}]}}",
+      "type": "string",
+      "created_at": "2018-03-29 03:11:35",
+      "updated_at": "2018-04-11 01:01:45"
+    },
+    {
+      "name": "AP21 Mobile POS",
+      "handle": "mobile-pos",
+      "namespace": "clienteling-view",
+      "value": "{\"type\":\"view\",\"handle\":\"mobile-ap21pos\",\"render\":{\"type\":\"wrapper\",\"use\":\"Small\",\"content\":[{\"type\":\"block\",\"use\":\"ProfileOverview\",\"settings\":{\"content\":{\"type\":\"layout\",\"use\":\"FourColumn\",\"columns\":[[{\"type\":\"block\",\"use\":\"ProfileDetail\",\"settings\":{\"title\":\"Signed up\",\"key\":\"created_at\",\"format\":\"dateFrom\"}}],[{\"type\":\"block\",\"use\":\"ProfileAggregation\",\"settings\":{\"title\":\"Last shop\",\"key\":\"spend_last_date\",\"format\":\"dateFrom\"}}],[{\"type\":\"block\",\"use\":\"ProfileAggregation\",\"settings\":{\"title\":\"AVG. Spend\",\"key\":\"spend_atv_all\",\"prefix\":\"$\"}}],[{\"type\":\"block\",\"use\":\"ProfileAggregation\",\"settings\":{\"title\":\"Total Spend\",\"key\":\"spend_atv_all\",\"prefix\":\"$\"}}]]}}},{\"type\":\"block\",\"use\":\"ProfileZendesk\",\"settings\":{\"enableComment\":true, \"enableCreate\":true, \"defaultTags\":[\"clienteling\"],\"tags\":[\"loyalty\",\"inStore\",\"customerSatisfied\"]}},{\"type\":\"block\",\"use\":\"ProfileLedger\"},{\"type\":\"layout\",\"use\":\"TwoColumn__1_1\",\"columns\":[[{\"type\":\"block\",\"use\":\"ProfileBenefits\",\"settings\":{\"create\":true,\"edit\":true,\"delete\":true}}],[{\"type\":\"block\",\"use\":\"ProfileRewards\",\"settings\":{\"create\":true,\"edit\":true,\"delete\":true}}]]}]}}",
+      "type": "string",
+      "created_at": "2018-03-29 03:25:48",
+      "updated_at": "2018-04-20 00:08:31"
+    },
+    {
+      "name": "Default",
+      "handle": "default",
+      "namespace": "clienteling-view",
+      "value": "{\"alias\":\"desktop-pos\"}",
+      "type": "string",
+      "created_at": "2018-03-29 03:35:46",
+      "updated_at": "2018-03-29 03:35:46"
+    },
+    {
+      "name": "Mobile Redeem",
+      "handle": "mobile-redeem",
+      "namespace": "clienteling-view",
+      "value": "{\"type\":\"view\",\"alias\":\"redeem\"}",
+      "type": "string",
+      "created_at": "2018-03-29 03:41:47",
+      "updated_at": "2018-03-29 03:44:31"
+    },
+    {
+      "name": "Desktop Redeem",
+      "handle": "desktop-redeem",
+      "namespace": "clienteling-view",
+      "value": "{\"type\":\"view\",\"alias\":\"redeem\"}",
+      "type": "string",
+      "created_at": "2018-03-29 03:42:28",
+      "updated_at": "2018-03-29 03:44:25"
+    },
+    {
+      "name": "Redeem",
+      "handle": "redeem",
+      "namespace": "clienteling-view",
+      "value": "{\"type\":\"view\",\"handle\":\"in-store\",\"render\":{\"type\":\"wrapper\",\"use\":\"ExtraSmall\",\"content\":[{\"type\":\"block\",\"use\":\"CalculateRedemption\",\"settings\":{\"functionName\":\"redeemReward_returnConfirmation\",\"totalKey\":\"max_redeem\"}},{\"type\":\"block\",\"use\":\"ProfileCallback\",\"settings\":{\"buttonText\":\"Cancel and return\",\"buttonType\":\"default\",\"functionName\":\"profile_returnToPos\",\"functionArguments\":[]}}]}}",
+      "type": "string",
+      "created_at": "2018-03-29 03:42:55",
+      "updated_at": "2018-03-29 03:44:03"
+    },
+    {
+      "name": "Search",
+      "handle": "search",
+      "namespace": "clienteling-setting",
+      "value": "{\"method\":\"Omneo\",\"config\":{\"applicationId\":\"W2PZW54B02\",\"apiKey\":\"9a1f7a664114daf8573dd0f85296418d\",\"index\":\"sportscraft_customer_production\",\"options\":{\"hitsPerPage\":\"8\"}}}",
+      "type": "string",
+      "created_at": "2018-04-04 06:05:22",
+      "updated_at": "2018-04-13 05:33:28"
+    },
+    {
+      "name": "Meta",
+      "handle": "meta",
+      "namespace": "clienteling",
+      "value": "{\"name\":\"Clienteling\",\"description\":\"Storeportal configuration settings\",\"appName\":\"Storeportal\",\"appCustom\":true,\"appUrl\":\"https://google.com\",\"appImage\":false,\"appIcon\":\"ShoppingBag\"}",
+      "type": "string",
+      "created_at": "2018-04-12 03:06:49",
+      "updated_at": "2018-04-12 07:44:10"
+    },
+    {
+      "name": "Zendesk",
+      "handle": "zendesk",
+      "namespace": "clienteling-setting",
+      "value": "{\"token\":\"3b56ea170211ee680692f7ebf729f0f6b88f252e49c1a99664a473adf972a51c\", \"subdomain\":\"debenhamsaustralia\"}",
+      "type": "string",
+      "created_at": "2018-04-18 00:53:46",
+      "updated_at": "2018-04-19 23:15:59"
+    },
+    {
+      "name": "List",
+      "handle": "list",
+      "namespace": "clienteling-view",
+      "value": "{\"type\":\"view\",\"handle\":\"lists\",\"render\":{\"type\":\"wrapper\",\"use\":\"ExtraSmall\",\"content\":[{\"type\":\"block\",\"use\":\"ProfileLists\",\"settings\":{\"lists\":[\"wishlist\"]}}]}}",
+      "type": "string",
+      "created_at": "2018-04-20 03:29:43",
+      "updated_at": "2018-04-20 03:29:43"
+    },
+    {
+      "name": "Zendesk Subdomain",
+      "handle": "subdomain",
+      "namespace": "zendesk",
+      "value": "foo.zendesk.com.au",
+      "type": "string",
+      "created_at": "2018-04-27 00:22:41",
+      "updated_at": "2018-04-27 00:26:29"
+    },
+    {
+      "name": "Zendesk Username",
+      "handle": "username",
+      "namespace": "zendesk",
+      "value": "dev@arkade.com.au",
+      "type": "string",
+      "created_at": "2018-04-27 00:25:18",
+      "updated_at": "2018-04-27 00:26:29"
+    },
+    {
+      "name": "Zendesk Token",
+      "handle": "token",
+      "namespace": "zendesk",
+      "value": "secret_token",
+      "type": "string",
+      "created_at": "2018-04-27 00:25:18",
+      "updated_at": "2018-04-27 00:26:30"
+    },
+    {
+      "name": "Zendesk Mapping",
+      "handle": "mapping",
+      "namespace": "zendesk",
+      "value": "{\"full_name\":\"name\",\"email\":\"email\",\"id\":\"external_id\"}",
+      "type": "string",
+      "created_at": "2018-04-29 23:14:21",
+      "updated_at": "2018-04-29 23:14:21"
+    },
+    {
+      "name": "Zendesk Secret",
+      "handle": "secret",
+      "namespace": "zendesk",
+      "value": "foobar",
+      "type": "string",
+      "created_at": "2018-04-30 07:04:40",
+      "updated_at": "2018-04-30 07:04:40"
+    },
+    {
+      "name": "Shopify shop name",
+      "handle": "shop_name",
+      "namespace": "shopify",
+      "value": "foo.myshopify.com",
+      "type": "string",
+      "created_at": "2018-05-01 07:02:51",
+      "updated_at": "2018-05-01 07:18:04"
+    },
+    {
+      "name": "Shopify api key",
+      "handle": "shopify_api_key",
+      "namespace": "shopify",
+      "value": "secret",
+      "type": "string",
+      "created_at": "2018-05-01 07:02:52",
+      "updated_at": "2018-05-01 07:09:37"
+    },
+    {
+      "name": "Shopify api secret",
+      "handle": "shopify_api_secret",
+      "namespace": "shopify",
+      "value": "anothersecret",
+      "type": "string",
+      "created_at": "2018-05-01 07:02:52",
+      "updated_at": "2018-05-01 07:09:37"
+    },
+    {
+      "name": "Shopify webhook key",
+      "handle": "shopify_webhook_key",
+      "namespace": "shopify",
+      "value": "d",
+      "type": "string",
+      "created_at": "2018-05-01 07:02:52",
+      "updated_at": "2018-05-01 07:09:37"
+    },
+    {
+      "name": "Shopify mapping",
+      "handle": "shopify_mapping",
+      "namespace": "shopify",
+      "value": "{\"tiers\":true,\"rewards\":true,\"benefits\":true,\"achievements\":true,\"last-shopped\":true,\"member-from\":true,\"gender\":true}",
+      "type": "string",
+      "created_at": "2018-05-01 07:05:07",
+      "updated_at": "2018-05-01 07:05:07"
+    }
+  ]
+}

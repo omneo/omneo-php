@@ -39,19 +39,14 @@ class CustomFields extends Module
      */
     public function browse(Constraint $constraint = null)
     {
-        $response = $this->client->get(sprintf(
-            '%s/%s',
-            $this->owner->uri(),
-            'custom-fields'
-        ), [
-            'query' => $this->applyConstraint($constraint)
-        ]);
-
-        return (new Collection(
-            json_decode((string) $response->getBody(), true)['data']
-        ))->map(function (array $row) {
-            return new CustomField($row);
-        });
+        return $this->buildCollection(
+            $this->client->get(sprintf(
+                '%s/%s',
+                $this->owner->uri(),
+                'custom-fields'
+            ), $this->applyConstraint($constraint)),
+            CustomField::class
+        );
     }
 
     /**
@@ -63,16 +58,15 @@ class CustomFields extends Module
      */
     public function read(string $namespace, string $handle)
     {
-        $response = $this->client->get(sprintf(
-            '%s/%s/%s:%s',
-            $this->owner->uri(),
-            'custom-fields',
-            $namespace,
-            $handle
-        ));
-
-        return new CustomField(
-            json_decode((string) $response->getBody(), true)['data']
+        return $this->buildEntity(
+            $this->client->get(sprintf(
+                '%s/%s/%s:%s',
+                $this->owner->uri(),
+                'custom-fields',
+                $namespace,
+                $handle
+            )),
+            CustomField::class
         );
     }
 
@@ -84,8 +78,6 @@ class CustomFields extends Module
      */
     public function edit(CustomField $customField)
     {
-        $customField->validate();
-
         try {
             $response = $this->client->put(sprintf(
                 '%s/%s/%s:%s',
@@ -94,7 +86,7 @@ class CustomFields extends Module
                 $customField->namespace,
                 $customField->handle
             ), [
-                'json' => $customField->toArray()
+                'json' => $customField->getDirtyAttributeValues()
             ]);
         } catch (ClientException $e) {
 
@@ -106,9 +98,7 @@ class CustomFields extends Module
 
         }
 
-        return new CustomField(
-            json_decode((string) $response->getBody(), true)['data']
-        );
+        return $this->buildEntity($response, CustomField::class);
     }
 
     /**
@@ -119,36 +109,32 @@ class CustomFields extends Module
      */
     public function add(CustomField $customField)
     {
-        $customField->validate();
-
-        $response = $this->client->post(sprintf(
-            '%s/%s',
-            $this->owner->uri(),
-            'custom-fields'
-        ), [
-            'json' => $customField->toArray()
-        ]);
-
-        return new CustomField(
-            json_decode((string) $response->getBody(), true)['data']
+        return $this->buildEntity(
+            $this->client->post(sprintf(
+                '%s/%s',
+                $this->owner->uri(),
+                'custom-fields'
+            ), [
+                'json' => $customField->toArray()
+            ]),
+            CustomField::class
         );
     }
 
     /**
      * Delete custom field with given namespace and handle.
      *
-     * @param  string  $namespace
-     * @param  string  $handle
+     * @param  CustomField $customField
      * @return void
      */
-    public function delete(string $namespace, string $handle)
+    public function delete(CustomField $customField)
     {
         $this->client->delete(sprintf(
             '%s/%s/%s:%s',
             $this->owner->uri(),
             'custom-fields',
-            $namespace,
-            $handle
+            $customField->namespace,
+            $customField->handle
         ));
     }
 }

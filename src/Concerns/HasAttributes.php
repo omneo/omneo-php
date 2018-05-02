@@ -3,9 +3,17 @@
 namespace Omneo\Concerns;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 trait HasAttributes
 {
+    /**
+     * Array of dirty attributes.
+     *
+     * @var array
+     */
+    protected $dirtyAttributes = [];
+
     /**
      * Get an attribute from the container.
      *
@@ -36,6 +44,18 @@ trait HasAttributes
     }
 
     /**
+     * Get the value of an attribute using its mutator.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return mixed
+     */
+    protected function mutateAttribute($key, $value)
+    {
+        return $this->{'get'.Str::studly($key).'Attribute'}($value);
+    }
+
+    /**
      * Set the attributes to the container.
      *
      * @param  array  $attributes
@@ -49,14 +69,49 @@ trait HasAttributes
     }
 
     /**
-     * Get the value of an attribute using its mutator.
+     * Set the value at the given offset.
      *
-     * @param  string  $key
-     * @param  mixed  $value
-     * @return mixed
+     * @param  string  $offset
+     * @param  mixed   $value
+     * @return void
      */
-    protected function mutateAttribute($key, $value)
+    public function offsetSet($offset, $value)
     {
-        return $this->{'get'.Str::studly($key).'Attribute'}($value);
+        parent::offsetSet($offset, $value);
+
+        if (! in_array($offset, $this->dirtyAttributes)) {
+            array_push($this->dirtyAttributes, $offset);
+        }
+    }
+
+    /**
+     * Set dirty attributes.
+     *
+     * @param  array  $dirtyAttributes
+     * @return static
+     */
+    public function setDirtyAttributes(array $dirtyAttributes)
+    {
+        $this->dirtyAttributes = $dirtyAttributes;
+    }
+
+    /**
+     * Get dirty attributes.
+     *
+     * @return array
+     */
+    public function getDirtyAttributes()
+    {
+        return $this->dirtyAttributes;
+    }
+
+    /**
+     * Get dirty attribute values.
+     *
+     * @return array
+     */
+    public function getDirtyAttributeValues()
+    {
+        return Arr::only($this->attributes, $this->dirtyAttributes);
     }
 }

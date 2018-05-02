@@ -8,6 +8,16 @@ use Omneo\Contracts;
 trait BuildsModules
 {
     /**
+     * Return profiles module.
+     *
+     * @return Profiles
+     */
+    public function profiles()
+    {
+        return new Profiles($this);
+    }
+
+    /**
      * Return webhooks module.
      *
      * @return Webhooks
