@@ -18,6 +18,17 @@ trait BuildsModules
     }
 
     /**
+     * Return identities module.
+     *
+     * @param  Contracts\HasUri  $owner
+     * @return Identities
+     */
+    public function identities(Contracts\HasUri $owner)
+    {
+        return new Identities($this, $owner);
+    }
+
+    /**
      * Return webhooks module.
      *
      * @return Webhooks
@@ -36,6 +47,16 @@ trait BuildsModules
     public function customFields(Contracts\HasUri $owner = null)
     {
         return new CustomFields($this, $owner ?: new Tenant);
+    }
+
+    /**
+     * Return interactions module.
+     *
+     * @return Interactions
+     */
+    public function interactions()
+    {
+        return new Interactions($this);
     }
 
     /**

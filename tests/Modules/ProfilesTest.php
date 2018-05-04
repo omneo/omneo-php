@@ -77,6 +77,36 @@ class ProfilesTest extends Omneo\TestCase
     /**
      * @test
      */
+    public function browse_accepts_constraint()
+    {
+        $module = new Profiles(
+            $client = m::mock(Omneo\Client::class)
+        );
+
+        $client
+            ->shouldReceive('get')
+            ->with('profiles', [
+                'query' => [
+                    'filter' => [
+                        'email' => [
+                            'eq' => 'foo@example.com'
+                        ]
+                    ]
+                ]
+            ])
+            ->once()
+            ->andReturn(
+                new GuzzleHttp\Psr7\Response(200, [], $this->stub('profiles/collection.json'))
+            );
+
+        $module->browse(
+            (new Omneo\Constraint)->where('email', 'foo@example.com')
+        );
+    }
+
+    /**
+     * @test
+     */
     public function read_returns_profile_entity()
     {
         $module = new Profiles(

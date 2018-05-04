@@ -9,11 +9,28 @@ class ScratchTest extends TestCase
      */
     public function test_real_request()
     {
+        return;
         $client = new Client('ap21-stage.omneoapp.com', $this->getToken());
 
-        $response = $client->profiles()->browse();
+        dd($client->interactions()->browse());
 
-        dd($response);
+        try {
+            $interaction = $client->interactions()->add(new Interaction([
+                'profile_id' => 1,
+                'identity_id' => 1,
+                'action' => 'service',
+                'channel' => 'support',
+                'name' => 'Ticket created',
+                'namespace' => 'zendesk',
+                'description' => 'This is a test ticket',
+                'url' => 'http://example.com/ticket/1',
+                'signal' => 0
+            ]));
+        } catch (\Exception $e) {
+            dd((string) $e->getResponse()->getBody());
+        }
+
+        dd($interaction);
     }
 
     protected function getToken()

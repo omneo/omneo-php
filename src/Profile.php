@@ -4,8 +4,18 @@ namespace Omneo;
 
 use Illuminate\Support\Collection;
 
-class Profile extends Entity
+class Profile extends Entity implements Contracts\HasUri
 {
+    /**
+     * Return URI for this entity.
+     *
+     * @return string
+     */
+    public function uri()
+    {
+        return sprintf('profiles/%d', $this->id);
+    }
+
     /**
      * Return address entity.
      *
