@@ -71,15 +71,15 @@ class CustomFields extends Module
     }
 
     /**
-     * Create or update given custom field.
+     * Edit the given custom field.
      *
      * @param  CustomField  $customField
      * @return CustomField
      */
     public function edit(CustomField $customField)
     {
-        try {
-            $response = $this->client->put(sprintf(
+        return $this->buildEntity(
+            $this->client->put(sprintf(
                 '%s/%s/%s:%s',
                 $this->owner->uri(),
                 'custom-fields',
@@ -87,18 +87,9 @@ class CustomFields extends Module
                 $customField->handle
             ), [
                 'json' => $customField->getDirtyAttributeValues()
-            ]);
-        } catch (ClientException $e) {
-
-            if (404 === $e->getCode()) {
-                return $this->add($customField);
-            }
-
-            throw $e;
-
-        }
-
-        return $this->buildEntity($response, CustomField::class);
+            ]),
+            CustomField::class
+        );
     }
 
     /**
@@ -119,6 +110,27 @@ class CustomFields extends Module
             ]),
             CustomField::class
         );
+    }
+
+    /**
+     * Create or update given custom field.
+     *
+     * @param  CustomField  $customField
+     * @return CustomField
+     */
+    public function editOrAdd(CustomField $customField)
+    {
+        try {
+            return $this->edit($customField);
+        } catch (ClientException $e) {
+
+            if (404 === $e->getCode()) {
+                return $this->add($customField);
+            }
+
+            throw $e;
+
+        }
     }
 
     /**

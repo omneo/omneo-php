@@ -87,12 +87,18 @@ trait HasAttributes
     /**
      * Set dirty attributes.
      *
-     * @param  array  $dirtyAttributes
+     * @param  array|string  $dirtyAttributes
      * @return static
      */
-    public function setDirtyAttributes(array $dirtyAttributes)
+    public function setDirtyAttributes($dirtyAttributes)
     {
+        if (! is_array($dirtyAttributes)) {
+            $dirtyAttributes = func_get_args();
+        }
+
         $this->dirtyAttributes = $dirtyAttributes;
+
+        return $this;
     }
 
     /**

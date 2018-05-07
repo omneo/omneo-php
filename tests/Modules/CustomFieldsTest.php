@@ -47,7 +47,7 @@ class CustomFieldsTest extends Omneo\TestCase
     /**
      * @test
      */
-    public function read_returns_custom_field_entity()
+    public function read_returns_custom_field()
     {
         $module = new CustomFields(
             $client = m::mock(Omneo\Client::class),
@@ -73,7 +73,7 @@ class CustomFieldsTest extends Omneo\TestCase
     /**
      * @test
      */
-    public function edit_returns_custom_field_entity()
+    public function edit_returns_custom_field()
     {
         $module = new CustomFields(
             $client = m::mock(Omneo\Client::class),
@@ -104,7 +104,7 @@ class CustomFieldsTest extends Omneo\TestCase
     /**
      * @test
      */
-    public function add_returns_profile_entity()
+    public function add_returns_custom_field()
     {
         $module = new CustomFields(
             $client = m::mock(Omneo\Client::class),
@@ -126,6 +126,76 @@ class CustomFieldsTest extends Omneo\TestCase
             );
 
         $customField = $module->add($customField);
+
+        $this->assertInstanceOf(Omneo\CustomField::Class, $customField);
+    }
+
+    /**
+     * @test
+     */
+    public function edit_or_add_edits_when_existing()
+    {
+        $module = new CustomFields(
+            $client = m::mock(Omneo\Client::class),
+            new Omneo\Tenant
+        );
+
+        $customField = new Omneo\CustomField(
+            $this->jsonStub('custom_fields/entity.json')['data']
+        );
+
+        $client
+            ->shouldReceive('put')
+            ->with('tenants/custom-fields/zendesk:secret', [
+                'json' => ['value' => 'foobar']
+            ])
+            ->once()
+            ->andReturn(
+                new GuzzleHttp\Psr7\Response(200, [], $this->stub('custom_fields/entity.json'))
+            );
+
+        $customField = $module->editOrAdd($customField->setDirtyAttributes('value'));
+
+        $this->assertInstanceOf(Omneo\CustomField::Class, $customField);
+    }
+
+    /**
+     * @test
+     */
+    public function edit_or_add_adds_when_missing()
+    {
+        $module = new CustomFields(
+            $client = m::mock(Omneo\Client::class),
+            new Omneo\Tenant
+        );
+
+        $customField = new Omneo\CustomField(
+            $this->jsonStub('custom_fields/entity.json')['data']
+        );
+
+        $client
+            ->shouldReceive('put')
+            ->with('tenants/custom-fields/zendesk:secret', [
+                'json' => ['value' => 'foobar']
+            ])
+            ->once()
+            ->andThrow(new GuzzleHttp\Exception\ClientException(
+                'Not Found',
+                new GuzzleHttp\Psr7\Request('PUT', 'tenants/custom-fields/zendesk:secret'),
+                new GuzzleHttp\Psr7\Response(404)
+            ));
+
+        $client
+            ->shouldReceive('post')
+            ->with('tenants/custom-fields', [
+                'json' => $customField->toArray()
+            ])
+            ->once()
+            ->andReturn(
+                new GuzzleHttp\Psr7\Response(200, [], $this->stub('custom_fields/entity.json'))
+            );
+
+        $customField = $module->editOrAdd($customField->setDirtyAttributes('value'));
 
         $this->assertInstanceOf(Omneo\CustomField::Class, $customField);
     }
