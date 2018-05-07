@@ -1,8 +1,14 @@
 <img src="logo.png" height="40" />
 
-![GitHub release](https://img.shields.io/github/release/omneo/omneo-php.svg) [![Documentation](https://img.shields.io/badge/documentation-GitBook-blue.svg)](https://omneo.gitbook.io/omneo-php)
+![GitHub release](https://img.shields.io/github/release/omneo/omneo-php.svg)
 
 Omneo PHP is a PHP client library for the Omneo API service. It allows developers to easily integrate Omneo with their PHP applications.
+
+[Read the documentation ⟶](https://omneo.gitbook.io/omneo-php)
+
+- [Prerequisites](#prerequisites)
+- [Quickstart](#quickstart)
+- [Contributing](#contributing)
 
 ## Prerequisites
 
@@ -79,4 +85,16 @@ class FooController extends Controller
         $profiles = app(Omneo\Client::class)->profiles()->browse();
     }
 }
+```
+
+## Contributing
+
+To contribute to this package, please open a [Pull Request](https://github.com/omneo/omneo-php/pulls).
+
+### Testing
+
+Testing is handled by [phpunit](https://phpunit.de). Pull requests should include unit tests for the affected logic.
+
+```
+phpunit
 ```
