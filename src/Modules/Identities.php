@@ -6,6 +6,7 @@ use Omneo\Client;
 use Omneo\Identity;
 use Omneo\Contracts;
 use Illuminate\Support\Collection;
+use GuzzleHttp\Exception\ClientException;
 
 class Identities extends Module
 {
@@ -96,7 +97,6 @@ class Identities extends Module
      *
      * @param  Identity  $identity
      * @return Identity
-     * @throws \DomainException
      */
     public function add(Identity $identity)
     {
@@ -110,6 +110,28 @@ class Identities extends Module
             ]),
             Identity::class
         );
+    }
+
+    /**
+     * Edit or add the given identity.
+     *
+     * @param  Identity  $identity
+     * @return Identity
+     * @throws ClientException
+     */
+    public function editOrAdd(Identity $identity)
+    {
+        try {
+            return $this->edit($identity);
+        } catch (ClientException $e) {
+
+            if (404 === $e->getCode()) {
+                return $this->add($identity);
+            }
+
+            throw $e;
+
+        }
     }
 
     /**
