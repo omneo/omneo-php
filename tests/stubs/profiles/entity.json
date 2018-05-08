@@ -37,6 +37,11 @@
     "birth_month": 1,
     "birth_day": 10,
     "next_birthday": null,
+    "joined_location_id": null,
+    "tier_handle": "my-tier",
+    "tags": [
+      "is-staff"
+    ],
     "identities": [
       {
         "id": 2,
@@ -49,11 +54,59 @@
         "updated_at": "2018-04-24 06:31:51"
       }
     ],
-    "joined_location_id": null,
-    "tags": [
-      "is-staff"
-    ],
-    "tier_handle": "my-tier",
+    "attributes": {
+      "foo": "bar",
+      "comms": {
+        "profile_id": 1,
+        "email_all": true,
+        "sms_all": true,
+        "push_all": true,
+        "email_status": null,
+        "push_status": null,
+        "sms_status": null,
+        "sms_promo": false,
+        "push_promo": true,
+        "email_promo": true,
+        "email_discover": true,
+        "email_benefits": true,
+        "email_reminders": true,
+        "email_account": true,
+        "email_bookings": true,
+        "email_feedback": true,
+        "email_location": false,
+        "sms_discover": false,
+        "sms_benefits": false,
+        "sms_reminders": true,
+        "sms_account": false,
+        "sms_bookings": true,
+        "sms_feedback": false,
+        "sms_location": false,
+        "push_discover": true,
+        "push_benefits": true,
+        "push_reminders": true,
+        "push_account": true,
+        "push_bookings": true,
+        "push_feedback": true,
+        "push_location": true,
+        "created_at": "2018-05-01 04:04:48",
+        "updated_at": "2018-05-01 04:04:48"
+      }
+    },
+    "aggregations": {
+      "id": 1,
+      "profile_id": 1,
+      "shop_days": null,
+      "spend_12m": 0,
+      "spend_all": 140.24,
+      "spend_atv_12m": 0,
+      "spend_atv_all": 70.12,
+      "spend_first_date": "1988-03-12 05:27:18",
+      "spend_last_date": "2011-05-21 19:09:40",
+      "dimension_frequency": "F2",
+      "dimension_recency": "RI",
+      "created_at": "2018-03-09 03:38:32",
+      "updated_at": "2018-04-05 06:09:09"
+    },
     "created_at": "2018-03-09 03:38:32",
     "updated_at": "2018-04-18 04:14:54"
   }

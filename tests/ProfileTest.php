@@ -3,6 +3,7 @@
 namespace Omneo\Modules;
 
 use Omneo;
+use Illuminate\Support\Fluent;
 use Illuminate\Support\Collection;
 
 class ProfileTest extends Omneo\TestCase
@@ -55,5 +56,22 @@ class ProfileTest extends Omneo\TestCase
 
         $this->assertEquals('zendesk', $profile->identities->first()->handle);
         $this->assertEquals('XYZ', $profile->identities->first()->identifier);
+    }
+
+    /**
+     * @test
+     */
+    public function attributes_property_returns_fluent()
+    {
+        $profile = new Omneo\Profile(
+            $this->jsonStub('profiles/entity.json')['data']
+        );
+
+        $this->assertInstanceOf(Fluent::class, $profile->attributes);
+        $this->assertEquals('bar', $profile->attributes->foo);
+
+        $this->assertInstanceOf(Fluent::class, $profile->attributes->comms);
+        $this->assertTrue($profile->attributes->comms->email_promo);
+        $this->assertfalse($profile->attributes->comms->sms_promo);
     }
 }

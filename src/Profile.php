@@ -2,6 +2,7 @@
 
 namespace Omneo;
 
+use Illuminate\Support\Fluent;
 use Illuminate\Support\Collection;
 
 class Profile extends Entity implements Contracts\HasUri
@@ -39,5 +40,29 @@ class Profile extends Entity implements Contracts\HasUri
             ->map(function (array $identity) {
                 return new Identity($identity);
             });
+    }
+
+    /**
+     * Return attributes fluent.
+     *
+     * @param  array  $attribute
+     * @return Fluent
+     */
+    public function getAttributesAttribute($attribute)
+    {
+        $fluent = new Fluent;
+
+        foreach ($attribute as $key => $value) {
+
+            if (is_array($value)) {
+                $fluent->{$key} = new Fluent($value);
+                continue;
+            }
+
+            $fluent->{$key} = $value;
+
+        }
+
+        return $fluent;
     }
 }
