@@ -33,7 +33,13 @@ class ServiceProvider extends BaseServiceProvider
                 throw new \Exception('You must configure a domain and token to use the Omneo client');
             }
 
-            return (new Client($domain, $token))->setSecret($secret);
+            $client = new Client($domain, $token);
+
+            if ($secret) {
+                $client->setSecret($secret);
+            }
+
+            return $client;
 
         });
     }
