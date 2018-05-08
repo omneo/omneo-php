@@ -1,6 +1,6 @@
 <img src="logo.png" height="40" />
 
-![GitHub release](https://img.shields.io/github/release/omneo/omneo-php.svg)
+![GitHub release](https://img.shields.io/github/release/omneo/omneo-php.svg) [ ![Codeship Status for omneo/omneo-php](https://app.codeship.com/projects/827a5420-2e6d-0136-ddd0-4a8950030b6e/status?branch=master)](https://app.codeship.com/projects/288229)
 
 Omneo PHP is a PHP client library for the Omneo API service. It allows developers to easily integrate Omneo with their PHP applications.
 
