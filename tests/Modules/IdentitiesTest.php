@@ -134,6 +134,76 @@ class IdentitiesTest extends Omneo\TestCase
     /**
      * @test
      */
+    public function edit_or_add_edits_when_existing()
+    {
+        $module = new Identities(
+            $client = m::mock(Omneo\Client::class),
+            new Omneo\Profile(['id' => 999])
+        );
+
+        $identity = new Omneo\Identity(
+            $this->jsonStub('identities/entity.json')['data']
+        );
+
+        $client
+            ->shouldReceive('put')
+            ->with('profiles/999/identities/zendesk', [
+                'json' => ['identifier' => '123']
+            ])
+            ->once()
+            ->andReturn(
+                new GuzzleHttp\Psr7\Response(200, [], $this->stub('identities/entity.json'))
+            );
+
+        $identity = $module->editOrAdd($identity->setDirtyAttributes('identifier'));
+
+        $this->assertInstanceOf(Omneo\Identity::Class, $identity);
+    }
+
+    /**
+     * @test
+     */
+    public function edit_or_add_adds_when_missing()
+    {
+        $module = new Identities(
+            $client = m::mock(Omneo\Client::class),
+            new Omneo\Profile(['id' => 999])
+        );
+
+        $identity = new Omneo\Identity(
+            $this->jsonStub('identities/entity.json')['data']
+        );
+
+        $client
+            ->shouldReceive('put')
+            ->with('profiles/999/identities/zendesk', [
+                'json' => ['identifier' => '123']
+            ])
+            ->once()
+            ->andThrow(new GuzzleHttp\Exception\ClientException(
+                'Not Found',
+                new GuzzleHttp\Psr7\Request('PUT', 'profiles/999/identities/zendesk'),
+                new GuzzleHttp\Psr7\Response(404)
+            ));
+
+        $client
+            ->shouldReceive('post')
+            ->with('profiles/999/identities', [
+                'json' => $identity->toArray()
+            ])
+            ->once()
+            ->andReturn(
+                new GuzzleHttp\Psr7\Response(200, [], $this->stub('identities/entity.json'))
+            );
+
+        $identity = $module->editOrAdd($identity->setDirtyAttributes('identifier'));
+
+        $this->assertInstanceOf(Omneo\Identity::Class, $identity);
+    }
+
+    /**
+     * @test
+     */
     public function delete_sends_delete_request()
     {
         $module = new Identities(
