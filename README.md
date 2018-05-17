@@ -4,7 +4,7 @@
 
 Omneo PHP is a PHP client library for the Omneo API service. It allows developers to easily integrate Omneo with their PHP applications.
 
-[Read the documentation ⟶](https://omneo.gitbook.io/omneo-php)
+[Read the documentation ⟶](https://github.com/omneo/omneo-php/wiki)
 
 - [Prerequisites](#prerequisites)
 - [Quickstart](#quickstart)
