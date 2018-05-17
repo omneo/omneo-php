@@ -14,7 +14,7 @@ class Profile extends Entity implements Contracts\HasUri
      */
     public function uri()
     {
-        return sprintf('profiles/%d', $this->id);
+        return sprintf('profiles/%s', $this->id);
     }
 
     /**

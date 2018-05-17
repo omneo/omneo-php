@@ -115,13 +115,13 @@ class ProfilesTest extends Omneo\TestCase
 
         $client
             ->shouldReceive('get')
-            ->with('profiles/1')
+            ->with('profiles/b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d')
             ->once()
             ->andReturn(
                 new GuzzleHttp\Psr7\Response(200, [], $this->stub('profiles/entity.json'))
             );
 
-        $profile = $module->read(1);
+        $profile = $module->read('b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d');
 
         $this->assertInstanceOf(Omneo\Profile::Class, $profile);
         $this->assertEquals('Carlos Bar', $profile->full_name);
@@ -145,7 +145,7 @@ class ProfilesTest extends Omneo\TestCase
 
         $client
             ->shouldReceive('put')
-            ->with('profiles/1', [
+            ->with('profiles/b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d', [
                 'json' => ['email' => 'profile1@example.com']
             ])
             ->once()
@@ -201,7 +201,7 @@ class ProfilesTest extends Omneo\TestCase
 
         $client
             ->shouldReceive('delete')
-            ->with('profiles/1')
+            ->with('profiles/b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d')
             ->once()
             ->andReturn(
                 new GuzzleHttp\Psr7\Response(200)
