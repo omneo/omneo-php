@@ -68,4 +68,13 @@ trait BuildsModules
     {
         return new RequestVerifier($this);
     }
+
+    /**
+     * @param Contracts\HasUri $owner
+     * @return Attributes
+     */
+    public function attributes(Contracts\HasUri $owner)
+    {
+        return new Attributes($this, $owner);
+    }
 }
