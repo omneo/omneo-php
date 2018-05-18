@@ -77,4 +77,14 @@ trait BuildsModules
     {
         return new Attributes($this, $owner);
     }
+
+    /**
+     * Return locations module.
+     *
+     * @return Locations
+     */
+    public function locations()
+    {
+        return new Locations($this);
+    }
 }
