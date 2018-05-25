@@ -70,11 +70,23 @@ trait BuildsModules
     }
 
     /**
+     * Return attributes module.
+     *
      * @param Contracts\HasUri $owner
      * @return Attributes
      */
     public function attributes(Contracts\HasUri $owner)
     {
         return new Attributes($this, $owner);
+    }
+
+    /**
+     * Return proxy module.
+     *
+     * @return Proxy
+     */
+    public function proxy()
+    {
+        return new Proxy($this);
     }
 }

@@ -66,6 +66,16 @@ class Client
     }
 
     /**
+     * Get the URI.
+     *
+     * @return GuzzleHttp\Psr7\Uri
+     */
+    public function getUri()
+    {
+        return new GuzzleHttp\Psr7\Uri('https://'.$this->domain.'/api/v3');
+    }
+
+    /**
      * Get Omneo bearer token.
      *
      * @return string
@@ -125,7 +135,7 @@ class Client
 
         $this->client = new GuzzleHttp\Client(array_merge([
             'handler'  => $stack,
-            'base_uri' => 'https://'.$this->domain.'/api/v3/'
+            'base_uri' => (string) $this->getUri()
         ], $options));
 
         return $this;
