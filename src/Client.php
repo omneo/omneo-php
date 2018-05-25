@@ -66,14 +66,14 @@ class Client
     }
 
     /**
-     * Get the URI.
+     * Get the URL.
      *
      * @return GuzzleHttp\Psr7\Uri
      */
-    public function getUri()
+    public function getUrl()
     {
         return new GuzzleHttp\Psr7\Uri(
-            sprintf('https://%s/api/v3/', $this->domain)
+            sprintf('http://%s/api/v3/', $this->domain)
         );
     }
 
@@ -137,7 +137,7 @@ class Client
 
         $this->client = new GuzzleHttp\Client(array_merge([
             'handler'  => $stack,
-            'base_uri' => (string) $this->getUri()
+            'base_uri' => (string) $this->getUrl()
         ], $options));
 
         return $this;

@@ -18,7 +18,7 @@ class Proxy extends Module
     public function send(RequestInterface $request, $normalisedPath = null)
     {
         // Create URI from configured endpoint.
-        $endpoint = $this->client->getUri();
+        $endpoint = $this->client->getUrl();
 
         // Initialise our new URI with configured host.
         $uri = $request->getUri()
