@@ -23,6 +23,7 @@ class Proxy extends Module
         // Initialise our new URI with configured host.
         $uri = $request->getUri()
             ->withScheme($endpoint->getScheme())
+            ->withPort($endpoint->getPort())
             ->withHost($endpoint->getHost());
 
         if ($normalisedPath) {
@@ -34,7 +35,9 @@ class Proxy extends Module
         }
 
         try {
-            return $this->parseProxyResponse($this->client->send($request->withUri($uri)));
+            return $this->parseProxyResponse(
+                $this->client->send($request->withUri($uri))
+            );
         } catch (GuzzleHttp\Exception\RequestException $e) {
             if ($e->hasResponse()) {
                 return $this->parseProxyResponse($e->getResponse());

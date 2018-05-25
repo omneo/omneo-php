@@ -72,7 +72,9 @@ class Client
      */
     public function getUri()
     {
-        return new GuzzleHttp\Psr7\Uri('https://'.$this->domain.'/api/v3');
+        return new GuzzleHttp\Psr7\Uri(
+            sprintf('https://%s/api/v3/', $this->domain)
+        );
     }
 
     /**
