@@ -73,7 +73,7 @@ class Client
     public function getUrl()
     {
         return new GuzzleHttp\Psr7\Uri(
-            sprintf('http://%s/api/v3/', $this->domain)
+            sprintf('https://%s/api/v3/', $this->domain)
         );
     }
 
