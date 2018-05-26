@@ -5,11 +5,12 @@ namespace Omneo\Modules;
 use Omneo\Location;
 use Omneo\Constraint;
 use Omneo\PaginatedCollection;
+use GuzzleHttp\Exception\ClientException;
 
 class Locations extends Module
 {
     /**
-     * Fetch listing of profiles.
+     * Fetch listing of locations.
      *
      * @param  Constraint  $constraint
      * @return PaginatedCollection|Location[]
@@ -25,7 +26,7 @@ class Locations extends Module
     }
 
     /**
-     * Fetch a single profile.
+     * Fetch a single location.
      *
      * @param  int  $id
      * @return Location
@@ -39,7 +40,7 @@ class Locations extends Module
     }
 
     /**
-     * Edit the given profile.
+     * Edit the given location.
      *
      * @param  Location  $location
      * @return Location
@@ -60,7 +61,7 @@ class Locations extends Module
     }
 
     /**
-     * Create the given profile.
+     * Create the given location.
      *
      * @param  Location  $location
      * @return Location
@@ -76,7 +77,29 @@ class Locations extends Module
     }
 
     /**
-     * Delete the given profile.
+     * Edit or add the given location.
+     *
+     ** @param  Location  $location
+     * @return Location
+     * @throws ClientException
+     */
+    public function editOrAdd(Location $location)
+    {
+        try {
+            return $this->edit($location);
+        } catch (ClientException $e) {
+
+            if (404 === $e->getCode()) {
+                return $this->add($location);
+            }
+
+            throw $e;
+
+        }
+    }
+
+    /**
+     * Delete the given location.
      *
      * @param  Location  $location
      * @return void
