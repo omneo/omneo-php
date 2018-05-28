@@ -16,7 +16,7 @@ class IdentitiesTest extends Omneo\TestCase
     {
         $client = new Omneo\Client('foo.omneo.io', 'batteryhorsestaple');
 
-        $module = $client->identities(new Omneo\Profile(['id' => 999]));
+        $module = $client->identities(new Omneo\Profile(['id' => 'b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d']));
 
         $this->assertInstanceOf(Identities::class, $module);
     }
@@ -28,12 +28,12 @@ class IdentitiesTest extends Omneo\TestCase
     {
         $module = new Identities(
             $client = m::mock(Omneo\Client::class),
-            new Omneo\Profile(['id' => 999])
+            new Omneo\Profile(['id' => 'b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d'])
         );
 
         $client
             ->shouldReceive('get')
-            ->with('profiles/999/identities')
+            ->with('profiles/b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d/identities')
             ->once()
             ->andReturn(
                 new GuzzleHttp\Psr7\Response(200, [], $this->stub('identities/collection.json'))
@@ -53,12 +53,12 @@ class IdentitiesTest extends Omneo\TestCase
     {
         $module = new Identities(
             $client = m::mock(Omneo\Client::class),
-            new Omneo\Profile(['id' => 999])
+            new Omneo\Profile(['id' => 'b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d'])
         );
 
         $client
             ->shouldReceive('get')
-            ->with('profiles/999/identities/zendesk')
+            ->with('profiles/b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d/identities/zendesk')
             ->once()
             ->andReturn(
                 new GuzzleHttp\Psr7\Response(200, [], $this->stub('identities/entity.json'))
@@ -78,7 +78,7 @@ class IdentitiesTest extends Omneo\TestCase
     {
         $module = new Identities(
             $client = m::mock(Omneo\Client::class),
-            new Omneo\Profile(['id' => 999])
+            new Omneo\Profile(['id' => 'b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d'])
         );
 
         $identity = new Omneo\Identity(
@@ -89,7 +89,7 @@ class IdentitiesTest extends Omneo\TestCase
 
         $client
             ->shouldReceive('put')
-            ->with('profiles/999/identities/zendesk', [
+            ->with('profiles/b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d/identities/zendesk', [
                 'json' => ['identifier' => 'abc']
             ])
             ->once()
@@ -109,7 +109,7 @@ class IdentitiesTest extends Omneo\TestCase
     {
         $module = new Identities(
             $client = m::mock(Omneo\Client::class),
-            new Omneo\Profile(['id' => 999])
+            new Omneo\Profile(['id' => 'b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d'])
         );
 
         $identity = new Omneo\Identity(
@@ -118,7 +118,7 @@ class IdentitiesTest extends Omneo\TestCase
 
         $client
             ->shouldReceive('post')
-            ->with('profiles/999/identities', [
+            ->with('profiles/b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d/identities', [
                 'json' => $identity->toArray()
             ])
             ->once()
@@ -138,7 +138,7 @@ class IdentitiesTest extends Omneo\TestCase
     {
         $module = new Identities(
             $client = m::mock(Omneo\Client::class),
-            new Omneo\Profile(['id' => 999])
+            new Omneo\Profile(['id' => 'b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d'])
         );
 
         $identity = new Omneo\Identity(
@@ -147,7 +147,7 @@ class IdentitiesTest extends Omneo\TestCase
 
         $client
             ->shouldReceive('put')
-            ->with('profiles/999/identities/zendesk', [
+            ->with('profiles/b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d/identities/zendesk', [
                 'json' => ['identifier' => '123']
             ])
             ->once()
@@ -167,7 +167,7 @@ class IdentitiesTest extends Omneo\TestCase
     {
         $module = new Identities(
             $client = m::mock(Omneo\Client::class),
-            new Omneo\Profile(['id' => 999])
+            new Omneo\Profile(['id' => 'b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d'])
         );
 
         $identity = new Omneo\Identity(
@@ -176,19 +176,19 @@ class IdentitiesTest extends Omneo\TestCase
 
         $client
             ->shouldReceive('put')
-            ->with('profiles/999/identities/zendesk', [
+            ->with('profiles/b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d/identities/zendesk', [
                 'json' => ['identifier' => '123']
             ])
             ->once()
             ->andThrow(new GuzzleHttp\Exception\ClientException(
                 'Not Found',
-                new GuzzleHttp\Psr7\Request('PUT', 'profiles/999/identities/zendesk'),
+                new GuzzleHttp\Psr7\Request('PUT', 'profiles/b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d/identities/zendesk'),
                 new GuzzleHttp\Psr7\Response(404)
             ));
 
         $client
             ->shouldReceive('post')
-            ->with('profiles/999/identities', [
+            ->with('profiles/b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d/identities', [
                 'json' => $identity->toArray()
             ])
             ->once()
@@ -208,7 +208,7 @@ class IdentitiesTest extends Omneo\TestCase
     {
         $module = new Identities(
             $client = m::mock(Omneo\Client::class),
-            new Omneo\Profile(['id' => 999])
+            new Omneo\Profile(['id' => 'b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d'])
         );
 
         $identity = new Omneo\Identity(
@@ -217,7 +217,7 @@ class IdentitiesTest extends Omneo\TestCase
 
         $client
             ->shouldReceive('delete')
-            ->with('profiles/999/identities/zendesk')
+            ->with('profiles/b1d6f3ec-38cd-4747-b7f3-6649c9c05c5d/identities/zendesk')
             ->once()
             ->andReturn(
                 new GuzzleHttp\Psr7\Response(200)

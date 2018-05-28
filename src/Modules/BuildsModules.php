@@ -70,6 +70,8 @@ trait BuildsModules
     }
 
     /**
+     * Return attributes module.
+     *
      * @param Contracts\HasUri $owner
      * @return Attributes
      */
@@ -86,5 +88,15 @@ trait BuildsModules
     public function locations()
     {
         return new Locations($this);
+    }
+
+    /**
+     * Return proxy module.
+     *
+     * @return Proxy
+     */
+    public function proxy()
+    {
+        return new Proxy($this);
     }
 }

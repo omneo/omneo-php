@@ -27,13 +27,13 @@ class Profiles extends Module
     /**
      * Fetch a single profile.
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return Profile
      */
-    public function read(int $id)
+    public function read(string $id)
     {
         return $this->buildEntity(
-            $this->client->get(sprintf('profiles/%d', $id)),
+            $this->client->get(sprintf('profiles/%s', $id)),
             Profile::class
         );
     }
@@ -52,7 +52,7 @@ class Profiles extends Module
         }
 
         return $this->buildEntity(
-            $this->client->put(sprintf('profiles/%d', $profile->id), [
+            $this->client->put(sprintf('profiles/%s', $profile->id), [
                 'json' => $profile->getDirtyAttributeValues()
             ]),
             Profile::class
@@ -87,6 +87,6 @@ class Profiles extends Module
             throw new \DomainException('Profile must contain an ID to delete');
         }
 
-        $this->client->delete(sprintf('profiles/%d', $profile->id));
+        $this->client->delete(sprintf('profiles/%s', $profile->id));
     }
 }
