@@ -8,6 +8,7 @@ use Omneo\Concerns;
 abstract class Module
 {
     use Concerns\MutatesResponses,
+        Concerns\InteractsWithUris,
         Concerns\AppliesConstraint;
 
     /**
