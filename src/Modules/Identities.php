@@ -23,7 +23,7 @@ class Identities extends Module
      * @param  Client  $client
      * @param  Contracts\HasUri  $owner
      */
-    public function __construct(Client $client, Contracts\HasUri $owner)
+    public function __construct(Client $client, Contracts\HasUri $owner = null)
     {
         parent::__construct($client);
 
@@ -38,11 +38,9 @@ class Identities extends Module
     public function browse()
     {
         return $this->buildCollection(
-            $this->client->get(sprintf(
-                '%s/%s',
-                $this->owner->uri(),
-                'identities'
-            )),
+            $this->client->get(
+                $this->prepareUri(sprintf('%s/%s', optional($this->owner)->uri(), 'identities'))
+            ),
             Identity::class
         );
     }
@@ -56,12 +54,9 @@ class Identities extends Module
     public function read(string $handle)
     {
         return $this->buildEntity(
-            $this->client->get(sprintf(
-                '%s/%s/%s',
-                $this->owner->uri(),
-                'identities',
-                $handle
-            )),
+            $this->client->get(
+                $this->prepareUri(sprintf('%s/%s/%s', optional($this->owner)->uri(), 'identities', $handle))
+            ),
             Identity::class
         );
     }
@@ -79,13 +74,17 @@ class Identities extends Module
             throw new \DomainException('Identity must contain a handle to edit');
         }
 
-        return $this->buildEntity(
-            $this->client->put(sprintf(
+        $uri = $this->prepareUri(
+            sprintf(
                 '%s/%s/%s',
-                $this->owner->uri(),
+                optional($this->owner)->uri(),
                 'identities',
                 $identity->handle
-            ), [
+            )
+        );
+
+        return $this->buildEntity(
+            $this->client->put($uri, [
                 'json' => $identity->getDirtyAttributeValues()
             ]),
             Identity::class
@@ -101,13 +100,10 @@ class Identities extends Module
     public function add(Identity $identity)
     {
         return $this->buildEntity(
-            $this->client->post(sprintf(
-                '%s/%s',
-                $this->owner->uri(),
-                'identities'
-            ), [
-                'json' => $identity->toArray()
-            ]),
+            $this->client->post(
+                $this->prepareUri(sprintf('%s/%s', optional($this->owner)->uri(), 'identities')),
+                ['json' => $identity->toArray()]
+            ),
             Identity::class
         );
     }
@@ -146,11 +142,28 @@ class Identities extends Module
             throw new \DomainException('Identity must contain a handle to delete');
         }
 
-        $this->client->delete(sprintf(
-            '%s/%s/%s',
-            $this->owner->uri(),
-            'identities',
-            $identity->handle
-        ));
+        $uri = $this->prepareUri(
+            sprintf(
+                '%s/%s/%s',
+                $this->owner->uri(),
+                'identities',
+                $identity->handle
+            )
+        );
+
+        $this->client->delete($uri);
+    }
+
+    /**
+     * Prepare the URI.
+     *
+     * @param string $uri
+     * @return string
+     */
+    protected function prepareUri(string $uri)
+    {
+        // Strip leading slashes. This can cause issues as a leading slash will remove
+        // the base API path from the domain.
+        return ltrim($uri, '/');
     }
 }

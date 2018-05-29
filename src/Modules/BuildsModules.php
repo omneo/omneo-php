@@ -23,7 +23,7 @@ trait BuildsModules
      * @param  Contracts\HasUri  $owner
      * @return Identities
      */
-    public function identities(Contracts\HasUri $owner)
+    public function identities(Contracts\HasUri $owner = null)
     {
         return new Identities($this, $owner);
     }
