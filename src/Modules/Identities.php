@@ -3,6 +3,7 @@
 namespace Omneo\Modules;
 
 use Omneo\Client;
+use Omneo\Constraint;
 use Omneo\Identity;
 use Omneo\Contracts;
 use Illuminate\Support\Collection;
@@ -23,11 +24,27 @@ class Identities extends Module
      * @param  Client  $client
      * @param  Contracts\HasUri  $owner
      */
-    public function __construct(Client $client, Contracts\HasUri $owner)
+    public function __construct(Client $client, Contracts\HasUri $owner = null)
     {
         parent::__construct($client);
 
         $this->owner = $owner;
+    }
+
+    /**
+     * Fetch a listing of root identities.
+     *
+     * @param Constraint $constraint
+     * @return \Omneo\PaginatedCollection|Identity[]
+     */
+    public function search(Constraint $constraint = null)
+    {
+        return $this->buildPaginatedCollection(
+            $this->client->get('identities', $this->applyConstraint($constraint)),
+            Identity::class,
+            [$this, __FUNCTION__],
+            $constraint
+        );
     }
 
     /**
