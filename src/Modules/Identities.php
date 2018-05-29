@@ -5,7 +5,8 @@ namespace Omneo\Modules;
 use Omneo\Client;
 use Omneo\Identity;
 use Omneo\Contracts;
-use Illuminate\Support\Collection;
+use Omneo\Constraint;
+use Omneo\PaginatedCollection;
 use GuzzleHttp\Exception\ClientException;
 
 class Identities extends Module
@@ -33,15 +34,19 @@ class Identities extends Module
     /**
      * Fetch listing of identities.
      *
-     * @return Collection|Identity[]
+     * @param Constraint|null $constraint
+     * @return Identity[]|PaginatedCollection
      */
-    public function browse()
+    public function browse(Constraint $constraint = null)
     {
-        return $this->buildCollection(
+        return $this->buildPaginatedCollection(
             $this->client->get(
-                $this->prepareUri(sprintf('%s/%s', optional($this->owner)->uri(), 'identities'))
+                $this->prepareUri(sprintf('%s/%s', optional($this->owner)->uri(), 'identities')),
+                $this->applyConstraint($constraint)
             ),
-            Identity::class
+            Identity::class,
+            [$this, __FUNCTION__],
+            $constraint
         );
     }
 
