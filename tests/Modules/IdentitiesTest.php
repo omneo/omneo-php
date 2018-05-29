@@ -41,7 +41,7 @@ class IdentitiesTest extends Omneo\TestCase
 
         $collection = $module->browse();
 
-        $this->assertInstanceOf(Collection::class, $collection);
+        $this->assertInstanceOf(Omneo\PaginatedCollection::class, $collection);
         $this->assertInstanceOf(Omneo\Identity::class, $collection->first());
         $this->assertEquals(2, $collection->count());
     }
