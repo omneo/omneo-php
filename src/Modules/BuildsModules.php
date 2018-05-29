@@ -81,6 +81,16 @@ trait BuildsModules
     }
 
     /**
+     * Return locations module.
+     *
+     * @return Locations
+     */
+    public function locations()
+    {
+        return new Locations($this);
+    }
+
+    /**
      * Return proxy module.
      *
      * @return Proxy
