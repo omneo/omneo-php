@@ -88,6 +88,32 @@ class Constraint
     }
 
     /**
+     * Apply a limit constraint.
+     *
+     * @param  int  $value
+     * @return static
+     */
+    public function limit(int $value)
+    {
+        array_set($this->bag, 'limit', $value);
+
+        return $this;
+    }
+
+    /**
+     * Apply an offset constraint.
+     *
+     * @param  int  $value
+     * @return static
+     */
+    public function offset(int $value)
+    {
+        array_set($this->bag, 'offset', $value);
+
+        return $this;
+    }
+
+    /**
      * Apply a page constraint.
      *
      * @param  int  $page
