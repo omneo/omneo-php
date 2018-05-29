@@ -24,6 +24,32 @@ class IdentitiesTest extends Omneo\TestCase
     /**
      * @test
      */
+    public function search_returns_paginated_collection()
+    {
+        $module = new Identities(
+            $client = m::mock(Omneo\Client::class)
+        );
+
+        $client
+            ->shouldReceive('get')
+            ->with('identities', [])
+            ->once()
+            ->andReturn(
+                new GuzzleHttp\Psr7\Response(200, [], $this->stub('identities/paginated-collection.json'))
+            );
+
+        $collection = $module->search();
+
+        $this->assertInstanceOf(Omneo\PaginatedCollection::class, $collection);
+        $this->assertEquals(1, $collection->currentPage());
+        $this->assertEquals(2, $collection->count());
+        $this->assertEquals(1, $collection->lastPage());
+        $this->assertEquals(2, $collection->total());
+    }
+
+    /**
+     * @test
+     */
     public function browse_returns_collection_of_identities()
     {
         $module = new Identities(
