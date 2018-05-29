@@ -27,5 +27,4 @@ class Location extends Entity implements Contracts\HasUri
     {
         return new Address($attribute);
     }
-
 }
