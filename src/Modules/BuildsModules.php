@@ -2,6 +2,7 @@
 
 namespace Omneo\Modules;
 
+use Omneo;
 use Omneo\Tenant;
 use Omneo\Contracts;
 
@@ -36,6 +37,17 @@ trait BuildsModules
     public function webhooks()
     {
         return new Webhooks($this);
+    }
+
+    /**
+     * Return redeem module.
+     *
+     * @param Contracts\HasUri $owner
+     * @return Redeem
+     */
+    public function redeem(Contracts\HasUri $owner)
+    {
+        return new Redeem($this, $owner);
     }
 
     /**
