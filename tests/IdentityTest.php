@@ -20,4 +20,16 @@ class IdentityTest extends Omneo\TestCase
         $this->assertEquals('zendesk', $identity->handle);
         $this->assertEquals('123', $identity->identifier);
     }
+
+    /**
+     * @test
+     */
+    public function can_cast_to_string()
+    {
+        $identity = new Omneo\Identity(
+            $this->jsonStub('identities/entity.json')['data']
+        );
+
+        $this->assertEquals('123', (string) $identity);
+    }
 }
