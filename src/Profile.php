@@ -39,7 +39,7 @@ class Profile extends Entity implements Contracts\HasUri
         return (new Collection((array) $attribute))
             ->map(function (array $identity) {
                 return new Identity($identity);
-            });
+            })->keyBy('handle');
     }
 
     /**

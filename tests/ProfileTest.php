@@ -56,6 +56,8 @@ class ProfileTest extends Omneo\TestCase
 
         $this->assertEquals('zendesk', $profile->identities->first()->handle);
         $this->assertEquals('XYZ', $profile->identities->first()->identifier);
+
+        $this->assertEquals(['zendesk'], $profile->identities->keys()->toArray());
     }
 
     /**
