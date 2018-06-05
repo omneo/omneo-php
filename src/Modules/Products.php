@@ -71,7 +71,7 @@ class Products extends Module
             $this->client->post('products', [
                 'json' => $product->toArray()
             ]),
-            Products::class
+            Product::class
         );
     }
 

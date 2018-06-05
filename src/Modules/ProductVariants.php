@@ -4,6 +4,7 @@ namespace Omneo\Modules;
 
 use Omneo\Client;
 use Omneo\Contracts;
+use Omneo\Constraint;
 use Omneo\ProductVariant;
 use Illuminate\Support\Collection;
 
@@ -32,16 +33,16 @@ class ProductVariants extends Module
     /**
      * Fetch listing of product variants.
      *
+     * @param Constraint|null $constraint
      * @return Collection|ProductVariant[]
      */
-    public function browse()
+    public function browse(Constraint $constraint = null)
     {
         return $this->buildCollection(
-            $this->client->get(sprintf(
-                '%s/%s',
-                $this->owner->uri(),
-                'variants'
-            )),
+            $this->client->get(
+                sprintf('%s/%s', $this->owner->uri(), 'variants'),
+                $this->applyConstraint($constraint)
+            ),
             ProductVariant::class
         );
     }
