@@ -40,6 +40,27 @@ trait BuildsModules
     }
 
     /**
+     * Return products module.
+     *
+     * @return Products
+     */
+    public function products()
+    {
+        return new Products($this);
+    }
+
+    /**
+     * Return product variants module.
+     *
+     * @param  Contracts\HasUri  $owner
+     * @return ProductVariants
+     */
+    public function productVariants(Contracts\HasUri $owner)
+    {
+        return new ProductVariants($this, $owner);
+    }
+
+    /**
      * Return redeem module.
      *
      * @param Contracts\HasUri $owner
