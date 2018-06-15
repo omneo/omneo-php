@@ -40,6 +40,16 @@ trait BuildsModules
     }
 
     /**
+     * Return transactions module.
+     *
+     * @return Transactions
+     */
+    public function transactions()
+    {
+        return new Transactions($this);
+    }
+
+    /**
      * Return products module.
      *
      * @return Products
