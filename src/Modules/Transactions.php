@@ -76,7 +76,7 @@ class Transactions extends Module
     }
 
     /**
-     * Delete the given webhook.
+     * Delete the given transaction.
      *
      * @param  Transaction  $transaction
      * @return void
