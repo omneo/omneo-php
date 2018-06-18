@@ -68,7 +68,7 @@ class Transactions extends Module
     public function add(Transaction $transaction)
     {
         return $this->buildEntity(
-            $this->client->post('transaction', [
+            $this->client->post('transactions', [
                 'json' => $transaction->toArray()
             ]),
             Transaction::class
