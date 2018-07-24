@@ -2,10 +2,10 @@
 
 namespace Omneo\Modules;
 
-use Illuminate\Support\Collection;
 use Omneo\Profile;
 use Omneo\Constraint;
 use Omneo\PaginatedCollection;
+use Illuminate\Support\Collection;
 
 class Profiles extends Module
 {
