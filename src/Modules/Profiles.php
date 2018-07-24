@@ -2,12 +2,20 @@
 
 namespace Omneo\Modules;
 
+use Illuminate\Support\Collection;
 use Omneo\Profile;
 use Omneo\Constraint;
 use Omneo\PaginatedCollection;
 
 class Profiles extends Module
 {
+    /**
+     * The maximum batch size.
+     *
+     * @const
+     */
+    const MAX_BATCH_SIZE = 500;
+
     /**
      * Fetch listing of profiles.
      *
@@ -73,6 +81,30 @@ class Profiles extends Module
             ]),
             Profile::class
         );
+    }
+
+    /**
+     * Batch create a collection of profiles.
+     *
+     * @param  Collection|Profile[] $profiles
+     * @param  string $matchCriteria
+     * @param  int  $size
+     * @return void
+     */
+    public function batch(Collection $profiles, string $matchCriteria = 'email', int $size = self::MAX_BATCH_SIZE)
+    {
+        if ($size > self::MAX_BATCH_SIZE) {
+            $size = self::MAX_BATCH_SIZE;
+        }
+
+        $profiles->chunk($size)->each(function(Collection $chunk) use ($matchCriteria) {
+            $this->client->post('profiles/batch', [
+                'json' => [
+                    'match_criteria' => $matchCriteria,
+                    'profiles' => $chunk->toArray(),
+                ]
+            ]);
+        });
     }
 
     /**
