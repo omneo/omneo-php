@@ -12,6 +12,13 @@ use GuzzleHttp\Exception\ClientException;
 class Identities extends Module
 {
     /**
+     * The maximum batch size.
+     *
+     * @const
+     */
+    const MAX_BATCH_SIZE = 500;
+
+    /**
      * Owner entity.
      *
      * @var Contracts\HasUri
@@ -21,8 +28,8 @@ class Identities extends Module
     /**
      * Identities constructor.
      *
-     * @param  Client  $client
-     * @param  Contracts\HasUri  $owner
+     * @param  Client $client
+     * @param  Contracts\HasUri $owner
      */
     public function __construct(Client $client, Contracts\HasUri $owner = null)
     {
@@ -67,7 +74,7 @@ class Identities extends Module
     /**
      * Fetch a single identity.
      *
-     * @param  string  $handle
+     * @param  string $handle
      * @return Identity
      */
     public function read(string $handle)
@@ -86,7 +93,7 @@ class Identities extends Module
     /**
      * Edit the given identity.
      *
-     * @param  Identity  $identity
+     * @param  Identity $identity
      * @return Identity
      * @throws \DomainException
      */
@@ -112,7 +119,7 @@ class Identities extends Module
     /**
      * Add the given identity.
      *
-     * @param  Identity  $identity
+     * @param  Identity $identity
      * @return Identity
      */
     public function add(Identity $identity)
@@ -132,7 +139,7 @@ class Identities extends Module
     /**
      * Edit or add the given identity.
      *
-     * @param  Identity  $identity
+     * @param  Identity $identity
      * @return Identity
      * @throws ClientException
      */
@@ -154,7 +161,7 @@ class Identities extends Module
     /**
      * Delete the given identity.
      *
-     * @param  Identity  $identity
+     * @param  Identity $identity
      * @return void
      */
     public function delete(Identity $identity)
@@ -169,5 +176,29 @@ class Identities extends Module
             'identities',
             $identity->handle
         ));
+    }
+
+    /**
+     * Batch create a collection of profiles.
+     *
+     * @param  Collection $attributes
+     * @param  string $handle
+     * @param  int $size
+     * @return void
+     */
+    public function batch(Collection $attributes, string $handle, int $size = self::MAX_BATCH_SIZE)
+    {
+        if ($size > self::MAX_BATCH_SIZE) {
+            $size = self::MAX_BATCH_SIZE;
+        }
+
+        $attributes->chunk($size)->each(function (Collection $chunk) use ($handle) {
+            $this->client->post('identities/batch', [
+                'json' => [
+                    'handle' => $handle,
+                    'identities' => $chunk->toArray(),
+                ]
+            ]);
+        });
     }
 }
