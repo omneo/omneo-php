@@ -16,7 +16,7 @@ class Identities extends Module
      *
      * @const
      */
-    const MAX_BATCH_SIZE = 1000;
+    const MAX_BATCH_SIZE = 500;
 
     /**
      * Owner entity.
