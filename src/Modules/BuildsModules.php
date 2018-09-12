@@ -103,6 +103,16 @@ trait BuildsModules
     }
 
     /**
+     * Return ratings module.
+     *
+     * @return Ratings
+     */
+    public function ratings()
+    {
+        return new Ratings($this);
+    }
+
+    /**
      * Return request verifier module.
      *
      * @return  RequestVerifier
