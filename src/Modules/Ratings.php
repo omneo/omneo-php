@@ -11,7 +11,7 @@ class Ratings extends Module
     /**
      * Fetch paginated listing of ratings.
      *
-     * @param  Constraint  $constraint
+     * @param  Constraint $constraint
      * @return PaginatedCollection|Rating[]
      */
     public function browse(Constraint $constraint = null)
@@ -25,9 +25,9 @@ class Ratings extends Module
     }
 
     /**
-     * Fetch a single ratings.
+     * Fetch a single rating.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Rating
      */
     public function read(int $id)
@@ -41,7 +41,7 @@ class Ratings extends Module
     /**
      * Edit the given ratings.
      *
-     * @param  Rating  $rating
+     * @param  Rating $rating
      * @return Rating
      * @throws \DomainException
      */
@@ -62,7 +62,7 @@ class Ratings extends Module
     /**
      * Add the given rating.
      *
-     * @param  Rating  $rating
+     * @param  Rating $rating
      * @return Rating
      * @throws \DomainException
      */
@@ -79,7 +79,7 @@ class Ratings extends Module
     /**
      * Delete the given ratings.
      *
-     * @param  Rating  $rating
+     * @param  Rating $rating
      * @return void
      */
     public function delete(Rating $rating)
