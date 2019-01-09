@@ -19,8 +19,8 @@ class Attributes extends Module
     /**
      * Identities constructor.
      *
-     * @param  Client  $client
-     * @param  Contracts\HasUri  $owner
+     * @param  Client $client
+     * @param  Contracts\HasUri $owner
      */
     public function __construct(Client $client, Contracts\HasUri $owner)
     {
@@ -49,7 +49,7 @@ class Attributes extends Module
     /**
      * Fetch a single identity.
      *
-     * @param  string  $handle
+     * @param  string $handle
      * @return Attribute
      */
     public function read(string $handle)
@@ -68,14 +68,14 @@ class Attributes extends Module
     /**
      * Edit the given identity.
      *
-     * @param  Attribute  $attribute
+     * @param  Attribute $attribute
      * @return Attribute
      * @throws \DomainException
      */
     public function edit(Attribute $attribute)
     {
-        if (! $attribute->handle) {
-            throw new \DomainException('Attribute must contain a handle to edit');
+        if (! ($attribute->handle || $attribute->APIhandle)) {
+            throw new \DomainException('Attribute must contain an (API) handle to edit');
         }
 
         return $this->buildEntity(
@@ -83,7 +83,7 @@ class Attributes extends Module
                 '%s/%s/%s',
                 $this->owner->uri(),
                 'attributes',
-                $attribute->handle
+                $attribute->APIhandle ?? $attribute->handle
             ), [
                 'json' => $attribute->getDirtyAttributeValues()
             ]),
