@@ -74,7 +74,7 @@ class Attributes extends Module
      */
     public function edit(Attribute $attribute)
     {
-        if (! ($attribute->handle || $attribute->APIhandle)) {
+        if (! $attribute->handle || ! $attribute->APIhandle) {
             throw new \DomainException('Attribute must contain an (API) handle to edit');
         }
 
