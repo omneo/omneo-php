@@ -30,7 +30,7 @@ class Attributes extends Module
     }
 
     /**
-     * Fetch listing of identities.
+     * Fetch listing of attributes.
      *
      * @return Collection|Attribute[]
      */
@@ -47,7 +47,7 @@ class Attributes extends Module
     }
 
     /**
-     * Fetch a single identity.
+     * Fetch a single attribute.
      *
      * @param  string  $handle
      * @return Attribute
@@ -66,7 +66,7 @@ class Attributes extends Module
     }
 
     /**
-     * Edit the given identity.
+     * Edit the given attribute.
      *
      * @param  Attribute  $attribute
      * @return Attribute
