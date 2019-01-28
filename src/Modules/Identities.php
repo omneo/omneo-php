@@ -21,8 +21,8 @@ class Identities extends Module
     /**
      * Identities constructor.
      *
-     * @param  Client  $client
-     * @param  Contracts\HasUri  $owner
+     * @param  Client $client
+     * @param  Contracts\HasUri $owner
      */
     public function __construct(Client $client, Contracts\HasUri $owner = null)
     {
@@ -65,9 +65,9 @@ class Identities extends Module
     }
 
     /**
-     * Fetch a single identity.
+     * Fetch a single identity by handle.
      *
-     * @param  string  $handle
+     * @param  string $handle
      * @return Identity
      */
     public function read(string $handle)
@@ -84,9 +84,33 @@ class Identities extends Module
     }
 
     /**
+     * Fetch a single identity by id.
+     *
+     * @param  Identity $identity
+     * @return Identity
+     */
+    public function readById(Identity $identity)
+    {
+        if (! $identity->id) {
+            throw new \DomainException('Identity must contain an id to read');
+        }
+
+        return $this->buildEntity(
+            $this->client->get(sprintf(
+                '%s/%s/%s/%s',
+                $this->owner->uri(),
+                'identities',
+                'id',
+                $identity->id
+            )),
+            Identity::class
+        );
+    }
+
+    /**
      * Edit the given identity.
      *
-     * @param  Identity  $identity
+     * @param  Identity $identity
      * @return Identity
      * @throws \DomainException
      */
@@ -110,9 +134,36 @@ class Identities extends Module
     }
 
     /**
+     * Edit the given identity by id.
+     *
+     * @param  Identity $identity
+     * @return Identity
+     * @throws \DomainException
+     */
+    public function editById(Identity $identity)
+    {
+        if (! $identity->id) {
+            throw new \DomainException('Identity must contain an id to edit');
+        }
+
+        return $this->buildEntity(
+            $this->client->put(sprintf(
+                '%s/%s/%s/%s',
+                $this->owner->uri(),
+                'identities',
+                'id',
+                $identity->id
+            ), [
+                'json' => $identity->getDirtyAttributeValues()
+            ]),
+            Identity::class
+        );
+    }
+
+    /**
      * Add the given identity.
      *
-     * @param  Identity  $identity
+     * @param  Identity $identity
      * @return Identity
      */
     public function add(Identity $identity)
@@ -132,7 +183,7 @@ class Identities extends Module
     /**
      * Edit or add the given identity.
      *
-     * @param  Identity  $identity
+     * @param  Identity $identity
      * @return Identity
      * @throws ClientException
      */
@@ -154,7 +205,7 @@ class Identities extends Module
     /**
      * Delete the given identity.
      *
-     * @param  Identity  $identity
+     * @param  Identity $identity
      * @return void
      */
     public function delete(Identity $identity)
@@ -168,6 +219,27 @@ class Identities extends Module
             $this->owner->uri(),
             'identities',
             $identity->handle
+        ));
+    }
+
+    /**
+     * Delete the given identity by id.
+     *
+     * @param  Identity $identity
+     * @return void
+     */
+    public function deleteById(Identity $identity)
+    {
+        if (! $identity->id) {
+            throw new \DomainException('Identity must contain an id to delete');
+        }
+
+        $this->client->delete(sprintf(
+            '%s/%s/%s/%s',
+            $this->owner->uri(),
+            'identities',
+            'id',
+            $identity->id
         ));
     }
 }
