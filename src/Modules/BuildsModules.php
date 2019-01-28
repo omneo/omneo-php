@@ -21,7 +21,7 @@ trait BuildsModules
     /**
      * Return identities module.
      *
-     * @param  Contracts\HasUri  $owner
+     * @param  Contracts\HasUri $owner
      * @return Identities
      */
     public function identities(Contracts\HasUri $owner = null)
@@ -62,7 +62,7 @@ trait BuildsModules
     /**
      * Return product variants module.
      *
-     * @param  Contracts\HasUri  $owner
+     * @param  Contracts\HasUri $owner
      * @return ProductVariants
      */
     public function productVariants(Contracts\HasUri $owner)
@@ -84,7 +84,7 @@ trait BuildsModules
     /**
      * Return custom fields module.
      *
-     * @param  Contracts\HasUri  $owner
+     * @param  Contracts\HasUri $owner
      * @return CustomFields
      */
     public function customFields(Contracts\HasUri $owner = null)
@@ -131,6 +131,17 @@ trait BuildsModules
     public function attributes(Contracts\HasUri $owner)
     {
         return new Attributes($this, $owner);
+    }
+
+    /**
+     * Return attributes module.
+     *
+     * @param Contracts\HasUri $owner
+     * @return CustomAttributes
+     */
+    public function customAttributes(Contracts\HasUri $owner)
+    {
+        return new CustomAttributes($this, $owner);
     }
 
     /**
