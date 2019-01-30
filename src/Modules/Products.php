@@ -76,6 +76,22 @@ class Products extends Module
     }
 
     /**
+     * Create or update the given product.
+     *
+     * @param  Product  $product
+     * @return Product
+     */
+    public function addOrEdit(Product $product)
+    {
+        return $this->buildEntity(
+            $this->client->post('products/create-update', [
+                'json' => $product->toArray()
+            ]),
+            Product::class
+        );
+    }
+
+    /**
      * Delete the given product.
      *
      * @param  Product  $product
