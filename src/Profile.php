@@ -43,6 +43,19 @@ class Profile extends Entity implements Contracts\HasUri
     }
 
     /**
+     * Return raw identities collection.
+     *
+     * @return Collection|Identity[]
+     */
+    public function getIdentitiesRawAttribute()
+    {
+        return (new Collection((array) $this->attributes['identities']))
+            ->map(function (array $identity) {
+                return new Identity($identity);
+            });
+    }
+
+    /**
      * Return attributes fluent.
      *
      * @param  array  $attribute
