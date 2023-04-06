@@ -50,6 +50,16 @@ trait BuildsModules
     }
 
     /**
+     * Return orders module.
+     *
+     * @return Orders
+     */
+    public function orders()
+    {
+        return new Orders($this);
+    }
+
+    /**
      * Return products module.
      *
      * @return Products
