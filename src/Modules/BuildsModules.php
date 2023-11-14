@@ -165,6 +165,14 @@ trait BuildsModules
     }
 
     /**
+     * Return connectons module
+     * @return Connections
+     */
+    public function connections()
+    {
+        return new Connections($this);
+    }
+    /**
      * Return proxy module.
      *
      * @return Proxy
